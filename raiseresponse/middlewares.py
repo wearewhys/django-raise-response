@@ -2,9 +2,13 @@
 from django.template import TemplateSyntaxError
 
 from .utils import ResponseError
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
 
-class RaiseResponse:
+class RaiseResponse(MiddlewareMixin):
     """
     Processes exceptions, returning a response if it's the case or raising
     the exception.
